@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test HR Form</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 40px; }
+    .box { background: white; padding: 30px; max-width: 600px; margin: auto; border-radius: 8px; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 12px 20px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2>Test Employee Form</h2>
+    <p>This is a test to see how interactive forms work.</p>
+
+    <form id="testForm">
+      <label>Employee Name</label>
+      <input type="text" name="employee">
+
+      <label>Issue Summary</label>
+      <textarea name="issue"></textarea>
+
+      <button type="submit">Download PDF</button>
+    </form>
+  </div>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    document.getElementById("testForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const employee = e.target.employee.value;
+      const issue = e.target.issue.value;
+
+      const pdf = new jsPDF();
+      pdf.text("Test HR Form", 10, 10);
+      pdf.text("Employee: " + employee, 10, 25);
+      pdf.text("Issue:", 10, 40);
+      pdf.text(issue, 10, 55);
+
+      pdf.save("test-form.pdf");
+    });
+  </script>
+</body>
+</html>
